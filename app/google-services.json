@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045235166398",
+    "project_id": "mycoachbasketball",
+    "storage_bucket": "mycoachbasketball.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045235166398:android:5295e11d1950da185e42ef",
+        "android_client_info": {
+          "package_name": "com.nimur.mycoachbasketball"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045235166398-qr80836rsvs7chv3t7pqf4bcmr700b5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAns77F3TTwhJOeugKkAfHjg_ijfgz8AKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045235166398-qr80836rsvs7chv3t7pqf4bcmr700b5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
