@@ -1,100 +1,25 @@
 package com.nimur.mycoachbasketball.viewmodel
 
-import android.net.Uri
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.nimur.mycoachbasketball.config.Constantes
-import com.nimur.mycoachbasketball.config.EquipoApp.Companion.db
-import com.nimur.mycoachbasketball.model.entidades.Equipo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
+import com.google.firebase.database.FirebaseDatabase
+import com.nimur.mycoachbasketball.model.TeamModel
 
 class AddTeamViewModel : ViewModel() {
+    private val _teamAdded = MutableLiveData<Boolean>()
+    val teamAdded: LiveData<Boolean> get() = _teamAdded
 
-    var id = MutableLiveData<Long>()
-    var nombre = MutableLiveData<String>()
-    var categoria = MutableLiveData<String>()
-    var operacion = Constantes.OPERACION_INSERTAR
-    var operacionExitosa = MutableLiveData<Boolean>()
+    fun addTeam(teamName: String, teamCategory: String, numberOfPlayers: String) {
+        val database = FirebaseDatabase.getInstance()
+        val teamsReference = database.getReference("teams")
 
-    fun guardarEquipo(){
-        if (validarInformacion()){
+        val teamId = teamsReference.push().key // Genera una clave única para el equipo
 
-            var mEquipo = Equipo(0,nombre.value!!,categoria.value!!)
-            when(operacion){
-                Constantes.OPERACION_INSERTAR -> {
-                    viewModelScope.launch {
-                        val result = withContext(Dispatchers.IO){
-                            db.equipoDao().insert(
-                                arrayListOf<Equipo>(mEquipo)
-                            )
-
-                        }
-                        operacionExitosa.value = result.isNotEmpty()
-                    }
-
-                }
-                Constantes.OPERACION_EDITAR->{
-                    mEquipo.idEquipo = id.value!!
-                    viewModelScope.launch{
-                        val result = withContext(Dispatchers.IO){
-                            db.equipoDao().update(mEquipo)
-                        }
-                        operacionExitosa.value = (result>0)
-                    }
-                }
-
-                Constantes.OPERACION_ELIMINAR->{
-                    mEquipo.idEquipo = id.value!!
-                    viewModelScope.launch{
-                        val result = withContext(Dispatchers.IO){
-                            db.equipoDao().delete(mEquipo)
-                        }
-                        operacionExitosa.value = (result>0)
-                    }
-                }
-
-            }
-
-        } else {
-            operacionExitosa.value = false
-
-        }
-
-    }
-
-    fun cargarDatos() {
-        viewModelScope.launch {
-            var equipo = withContext(Dispatchers.IO){
-                db.equipoDao().getById(id.value!!)
-
-            }
-
-            nombre.value = equipo.nombreEquipo
-            categoria.value = equipo.categoriaEquipo
-
-        }
-    }
-
-
-    private fun validarInformacion():Boolean {
-        //devuelve true si la información no es nula ni vacía
-        return !( nombre.value.isNullOrEmpty() ||
-                categoria.value.isNullOrEmpty()
-                )
-    }
-
-    fun eliminarEquipo() {
-        var mEquipo = Equipo(id.value!!,"","")
-        viewModelScope.launch {
-            var result = withContext(Dispatchers.IO){
-                db.equipoDao().delete(mEquipo)
-            }
-            operacionExitosa.value = (result>0)
+        val team = TeamModel(teamName, teamCategory, numberOfPlayers)
+        teamId?.let {
+            teamsReference.child(it).setValue(team)
+            _teamAdded.value = true
         }
     }
 }

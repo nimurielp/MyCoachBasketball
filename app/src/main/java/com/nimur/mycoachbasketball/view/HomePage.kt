@@ -57,8 +57,9 @@ class HomePage : AppCompatActivity() {
         cardLogout.setOnClickListener {
             showToast("Logout Clicked")
             Firebase.auth.signOut()
+
+
             val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
