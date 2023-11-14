@@ -6,7 +6,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -47,10 +46,15 @@
     <string name="password">Password</string>
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="registrarse">Registrarse</string>
-    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_equipo">Eliminar Equipo</string>
     <string name="editar">Editar</string>
     <string name="guardar">Guardar</string>
     <string name="borrar_equipo">¿Borrar Equipo?</string>
     <string name="yes">Sí, borrar</string>
     <string name="cancel">Cancelar</string>
+    <string name="buscar_equipo">Buscar Equipo</string>
+    <string name="mis_equipos">Mis Equipos</string>
+    <string name="seleccionar_logo">Seleccionar Logo</string>
+    <string name="subir_logo">Subir Logo</string>
+    <string name="title_activity_jugadores">JugadoresActivity</string>
 </resources>

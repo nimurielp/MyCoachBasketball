@@ -10,6 +10,7 @@ import com.nimur.mycoachbasketball.config.Constantes
 import com.nimur.mycoachbasketball.databinding.ItemListBinding
 import com.nimur.mycoachbasketball.model.entidades.Equipo
 import com.nimur.mycoachbasketball.ui.AddTeamActivity
+import com.nimur.mycoachbasketball.view.JugadoresActivity
 
 
 class EquipoAdapter(private val dataSet: List<Equipo>?) :
@@ -49,11 +50,17 @@ class EquipoAdapter(private val dataSet: List<Equipo>?) :
             binding.tvCatergoriaEquipo.text = "${e.categoriaEquipo}"
 
             binding.root.setOnClickListener {
+                val intent = Intent(contexto,JugadoresActivity::class.java)
+                contexto.startActivity(intent)
+            }
+
+            binding.editIcon.setOnClickListener {
                 val intent = Intent(contexto,AddTeamActivity::class.java)
                 intent.putExtra(Constantes.OPERACION_KEY, Constantes.OPERACION_EDITAR)
                 intent.putExtra(Constantes.ID_EQUIPO_KEY, e.idEquipo)
                 contexto.startActivity(intent)
             }
+
 
         }
 

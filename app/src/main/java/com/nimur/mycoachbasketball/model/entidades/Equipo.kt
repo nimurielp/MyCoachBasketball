@@ -9,5 +9,5 @@ data class Equipo(
     @PrimaryKey(autoGenerate = true)
     var idEquipo: Long = 0L,
     var nombreEquipo: String,
-    var categoriaEquipo: String,
+    var categoriaEquipo: String
 )

@@ -19,16 +19,16 @@ class MainViewModel:ViewModel() {
 
         viewModelScope.launch {
             equipoList.value = withContext(Dispatchers.IO) {
-                /* db.equipoDao().insert(arrayListOf<Equipo>(
-                    Equipo(0,"C.P. Bosco Servitopo", "Cadete"),
-                    Equipo(0,"C.P. Bosco Exaclean", "Junior")
-                ))*/
                 db.equipoDao().getAll()
             }
-
-
             }
-
         }
 
+    fun buscarEquipo() {
+        viewModelScope.launch {
+            equipoList.value = withContext(Dispatchers.IO) {
+                db.equipoDao().getByName(parametroBusqueda.value!!)
+            }
+        }
     }
+}

@@ -3,6 +3,9 @@ package com.nimur.mycoachbasketball.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,11 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nimur.mycoachbasketball.adaptadores.EquipoAdapter
 import com.nimur.mycoachbasketball.config.Constantes
 import com.nimur.mycoachbasketball.databinding.ActivityViewTeamBinding
+import com.nimur.mycoachbasketball.dialogos.BorrarDialogo
 import com.nimur.mycoachbasketball.ui.AddTeamActivity
 import com.nimur.mycoachbasketball.viewmodel.MainViewModel
 
 
-class TeamsActivity : AppCompatActivity() {
+class TeamsActivity : AppCompatActivity(), BorrarDialogo.BorrarListener {
     lateinit var binding: ActivityViewTeamBinding
     lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +29,10 @@ class TeamsActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this).get()
+
+        binding.lifecycleOwner = this
+        binding.modelo = viewModel
+
         viewModel.iniciar()
 
         binding.teamRecyclerView.apply{
@@ -41,5 +49,22 @@ class TeamsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.etBuscar.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if(s.toString().isNotEmpty()){
+                    viewModel.buscarEquipo()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
+
+    override fun borrarEquipo() {
+        TODO("Not yet implemented")
+    }
+
 }

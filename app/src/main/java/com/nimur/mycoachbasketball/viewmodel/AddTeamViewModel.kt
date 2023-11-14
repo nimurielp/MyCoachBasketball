@@ -1,5 +1,6 @@
 package com.nimur.mycoachbasketball.viewmodel
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +43,16 @@ class AddTeamViewModel : ViewModel() {
                     viewModelScope.launch{
                         val result = withContext(Dispatchers.IO){
                             db.equipoDao().update(mEquipo)
+                        }
+                        operacionExitosa.value = (result>0)
+                    }
+                }
+
+                Constantes.OPERACION_ELIMINAR->{
+                    mEquipo.idEquipo = id.value!!
+                    viewModelScope.launch{
+                        val result = withContext(Dispatchers.IO){
+                            db.equipoDao().delete(mEquipo)
                         }
                         operacionExitosa.value = (result>0)
                     }

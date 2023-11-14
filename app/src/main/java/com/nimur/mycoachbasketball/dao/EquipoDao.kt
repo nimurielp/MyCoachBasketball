@@ -15,6 +15,10 @@ interface EquipoDao {
 
     @Query("SELECT * FROM Equipo WHERE idEquipo = :id")
     suspend fun getById(id:Long):Equipo
+
+    @Query("SELECT * FROM Equipo WHERE nombreEquipo LIKE '%' || :name || '%' OR categoriaEquipo LIKE '%' || :name || '%'")
+    suspend fun getByName(name:String):List<Equipo>
+
     @Insert
     suspend fun insert(equipos:List<Equipo>):List<Long>
 
