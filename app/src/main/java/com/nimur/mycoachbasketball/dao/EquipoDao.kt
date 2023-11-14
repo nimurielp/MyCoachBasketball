@@ -12,6 +12,9 @@ interface EquipoDao {
 
     @Query("SELECT * FROM Equipo")
     suspend fun getAll():List<Equipo>
+
+    @Query("SELECT * FROM Equipo WHERE idEquipo = :id")
+    suspend fun getById(id:Long):Equipo
     @Insert
     suspend fun insert(equipos:List<Equipo>):List<Long>
 

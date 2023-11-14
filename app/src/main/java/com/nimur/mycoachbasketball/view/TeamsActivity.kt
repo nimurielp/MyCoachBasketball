@@ -1,40 +1,45 @@
 package com.nimur.mycoachbasketball.view
 
+
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.nimur.mycoachbasketball.R
-import com.nimur.mycoachbasketball.viewmodel.TeamsViewModel
+import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.nimur.mycoachbasketball.adaptadores.EquipoAdapter
+import com.nimur.mycoachbasketball.config.Constantes
+import com.nimur.mycoachbasketball.databinding.ActivityViewTeamBinding
+import com.nimur.mycoachbasketball.ui.AddTeamActivity
+import com.nimur.mycoachbasketball.viewmodel.MainViewModel
+
 
 class TeamsActivity : AppCompatActivity() {
-    private lateinit var teamsViewModel: TeamsViewModel
-    private lateinit var addTeam: FloatingActionButton
-
+    lateinit var binding: ActivityViewTeamBinding
+    lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_team)
-        addTeam = findViewById(R.id.addTeamFab)
+        binding = ActivityViewTeamBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        teamsViewModel = ViewModelProvider(this).get(TeamsViewModel::class.java)
 
-        // Observa cambios en la lista de equipos.
-        teamsViewModel.teamList.observe(this, Observer { teamList ->
-            // Actualiza la interfaz de usuario con la lista de equipos recuperada.
-            // Por ejemplo, puedes usar un RecyclerView para mostrar la lista.
+        viewModel = ViewModelProvider(this).get()
+        viewModel.iniciar()
+
+        binding.teamRecyclerView.apply{
+            layoutManager = LinearLayoutManager(applicationContext)
+        }
+
+        viewModel.equipoList.observe(this, Observer {
+            binding.teamRecyclerView.adapter = EquipoAdapter(it)
         })
 
-        // Llama al método fetchTeams en el ViewModel para iniciar la recuperación.
-        teamsViewModel.fetchTeams()
-
-
-        addTeam.setOnClickListener {
-            // Inicia la actividad AddTeamActivity al hacer clic en el botón flotante
-            val intent = Intent(this@TeamsActivity, AddTeamActivity::class.java)
+        binding.addTeamFab.setOnClickListener {
+            val intent = Intent(this, AddTeamActivity::class.java)
+            intent.putExtra(Constantes.OPERACION_KEY,Constantes.OPERACION_INSERTAR)
             startActivity(intent)
         }
+
     }
 }

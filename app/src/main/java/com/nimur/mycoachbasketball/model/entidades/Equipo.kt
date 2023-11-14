@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Equipo(
     @PrimaryKey(autoGenerate = true)
-    val idEquipo: Long = 0L,
+    var idEquipo: Long = 0L,
     var nombreEquipo: String,
     var categoriaEquipo: String,
-    var LogoEquipo: Image
 )
