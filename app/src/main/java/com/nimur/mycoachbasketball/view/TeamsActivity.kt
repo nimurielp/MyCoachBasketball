@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,7 @@ import com.nimur.mycoachbasketball.ui.AddTeamActivity
 import com.nimur.mycoachbasketball.viewmodel.MainViewModel
 
 
-class TeamsActivity : AppCompatActivity(), BorrarDialogo.BorrarListener {
+class TeamsActivity : AppCompatActivity() {
     lateinit var binding: ActivityViewTeamBinding
     lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,8 +62,5 @@ class TeamsActivity : AppCompatActivity(), BorrarDialogo.BorrarListener {
         })
     }
 
-    override fun borrarEquipo() {
-        TODO("Not yet implemented")
-    }
 
 }

@@ -55,7 +55,7 @@ class EquipoAdapter(private val dataSet: List<Equipo>?) :
             }
 
             binding.editIcon.setOnClickListener {
-                val intent = Intent(contexto,AddTeamActivity::class.java)
+                val intent = Intent(contexto, AddTeamActivity::class.java)
                 intent.putExtra(Constantes.OPERACION_KEY, Constantes.OPERACION_EDITAR)
                 intent.putExtra(Constantes.ID_EQUIPO_KEY, e.idEquipo)
                 contexto.startActivity(intent)
